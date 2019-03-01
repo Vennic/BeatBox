@@ -11,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.beatbox.component.BeatBoxComponent;
+import com.example.beatbox.component.DaggerBeatBoxComponent;
 import com.example.beatbox.databinding.FragmentBeatBoxBinding;
 import com.example.beatbox.databinding.ListItemSoundBinding;
+import com.example.beatbox.module.ContextModule;
 
 import java.util.List;
 
@@ -27,7 +30,12 @@ public class BeatBoxFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBeatBox = new BeatBox(getActivity());
+
+        BeatBoxComponent beatBoxModule = DaggerBeatBoxComponent.builder()
+                .contextModule(new ContextModule(getActivity()))
+                .build();
+
+        mBeatBox = beatBoxModule.getBeatBox();
     }
 
     @Nullable

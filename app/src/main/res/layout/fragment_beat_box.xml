@@ -26,7 +26,8 @@
             android:layout_height="48dp"
             android:layout_gravity="bottom"
             android:max="100"
-            android:progress="0" />
+            android:progress="100"
+            android:background="@color/dark_blue"/>
     </LinearLayout>
 
 </layout>

@@ -17,6 +17,11 @@ public class BeatBox {
     private static final int SOUNDS_MAX = 5;
     private List<Sound> mSounds = new ArrayList<>();
     private SoundPool mSoundPool;
+    private float rate;
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
 
     private AssetManager mAsset;
 
@@ -65,7 +70,7 @@ public class BeatBox {
             return;
         }
 
-        mSoundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f);
+        mSoundPool.play(soundId, 1.0f, 1.0f, 1, 0, rate);
     }
 
     public List<Sound> getSounds() {

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 
 import com.example.beatbox.component.DaggerAppComponent;
 import com.example.beatbox.databinding.FragmentBeatBoxBinding;
@@ -45,6 +46,23 @@ public class BeatBoxFragment extends Fragment {
         FragmentBeatBoxBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_beat_box, container, false);
         binding.recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         binding.recyclerView.setAdapter(new SoundAdapter(mBeatBox.getSounds()));
+        binding.playback.setText(getString(R.string.text_playback, binding.soundSpeed.getProgress()));
+
+        binding.soundSpeed.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                binding.playback.setText(getString(R.string.text_playback, progress));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mBeatBox.setRate((float) seekBar.getProgress() / 100);
+            }
+        });
         return binding.getRoot();
     }
 
@@ -63,7 +81,7 @@ public class BeatBoxFragment extends Fragment {
             soundBinding.setViewModel(new SoundViewModel(mBeatBox));
         }
 
-        public void bind(Sound sound) {
+        void bind(Sound sound) {
             mBinding.getViewModel().setSound(sound);
             mBinding.executePendingBindings();
         }
@@ -74,7 +92,7 @@ public class BeatBoxFragment extends Fragment {
     private class SoundAdapter extends RecyclerView.Adapter<SoundHolder> {
         private List<Sound> mSounds;
 
-        public SoundAdapter(List<Sound> sounds) {
+        SoundAdapter(List<Sound> sounds) {
             mSounds = sounds;
         }
 

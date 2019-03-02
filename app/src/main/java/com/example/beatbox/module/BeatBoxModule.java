@@ -7,7 +7,7 @@ import com.example.beatbox.BeatBox;
 import dagger.Module;
 import dagger.Provides;
 
-@Module (includes = ContextModule.class)
+@Module
 public class BeatBoxModule {
 
     @Provides

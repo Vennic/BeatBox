@@ -2,12 +2,13 @@ package com.example.beatbox.module;
 
 import android.content.Context;
 
+
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class ContextModule {
-    Context mContext;
+    private Context mContext;
 
     public ContextModule(Context context) {
         mContext = context;
@@ -15,6 +16,6 @@ public class ContextModule {
 
     @Provides
     public Context getContext() {
-        return mContext.getApplicationContext();
+        return mContext;
     }
 }
